@@ -7,7 +7,6 @@
 
 import Foundation
 
-var students: [String] = []
 var score: [String: [String]] = [:]
 var input = ""
 
@@ -19,17 +18,17 @@ repeat {
     if input == "1" {
         print("추가할 학생의 이름을 입력해주세요")
         let inputName = readLine()!
-        if students.isEmpty {
+        if score.isEmpty {
             print("\(inputName) 학생을 추가했습니다.")
-            students.append(inputName)
+            score.updateValue([], forKey: inputName)
         } else {
-            for i in students {
-                if inputName == i {
+            for (key, _) in score {
+                if inputName == key {
                     print("\(inputName)은 이미 존재하는 학생입니다. 추가하지 않습니다.")
                     break
                 }
                 print("\(inputName) 학생을 추가했습니다.")
-                students.append(inputName)
+                score.updateValue([], forKey: inputName)
             }
         }
         
@@ -37,10 +36,10 @@ repeat {
         print("삭제할 학생의 이름을 입력해주세요")
         let inputDeleteName = readLine()!
         
-        if (students.firstIndex(of: inputDeleteName) != nil) {
+        if score.index(forKey: inputDeleteName) != nil {
             print("\(inputDeleteName) 학생을 삭제하였습니다")
-            let index = students.firstIndex(of: inputDeleteName)
-            students.remove(at: Int(index!))
+            let index = score.index(forKey: inputDeleteName)
+            score.remove(at: index!)
         } else {
             print("\(inputDeleteName) 학생을 찾지 못했습니다")
         }
